@@ -13,7 +13,7 @@ class EngagePod {
      *
      * @const string VERSION
      */
-    const VERSION = '0.0.2';
+    const VERSION = '0.0.3';
 
     private $_baseUrl;
     private $_session_encoding;
