@@ -165,16 +165,21 @@ class EngagePod {
      * Remove a contact
      *
      */
-    public function removeContact($databaseID, $email, $customer_id) {
+    public function removeContact($databaseID, $email, $customer_id = null) {
         $data["Envelope"] = array(
             "Body" => array(
                 "RemoveRecipient" => array(
                     "LIST_ID" => $databaseID,
                     "EMAIL" => $email,
-                    "COLUMN" => array(array("NAME"=>"customer_id", "VALUE"=>$customer_id)),
                 ),
             ),
         );
+
+        if ( ! is_null($customer_id))
+        {
+            $data["Envelope"]["Body"]["RemoveRecipient"]["COLUMN"] = array(array("NAME"=>"customer_id", "VALUE"=>$customer_id));
+        }
+
         $response = $this->_request($data);
         $result = $response["Envelope"]["Body"]["RESULT"];
         if ($this->_isSuccess($result)) {
